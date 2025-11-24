@@ -306,26 +306,28 @@ function GetReward(id){
         tasklistname = "tasks20"; 
     }
 
-    let Reward = Updater.Coinrewards;
-    let storedcoins = parseInt(localStorage.getItem("coins"));   
-    
-    let totalcoins = Reward + storedcoins;
-    localStorage.setItem("coins", totalcoins);
+    if (Updater.Taskcomplete){
+        let Reward = Updater.Coinrewards;
+        let storedcoins = parseInt(localStorage.getItem("coins"));   
+        
+        let totalcoins = Reward + storedcoins;
+        localStorage.setItem("coins", totalcoins);
 
-    coindisplaynum.textContent = String(totalcoins).padStart(3,"0");
+        coindisplaynum.textContent = String(totalcoins).padStart(3,"0");
 
-    let old10 = localStorage.getItem(tasklistname);
-    let new10 = parseInt(old10) + 1;
-    let len = tasklist.length;
+        let old10 = localStorage.getItem(tasklistname);
+        let new10 = parseInt(old10) + 1;
+        let len = tasklist.length;
 
-    if ( new10 == len ){
-        new10 = 0;
+        if ( new10 == len ){
+            new10 = 0;
+        }
+
+        localStorage.setItem(tasklistname, new10);
+
+        Updater.StartNewTask(tasklist[new10], Reward);
+        Updatealltasks();
     }
-
-    localStorage.setItem(tasklistname, new10);
-
-    Updater.StartNewTask(tasklist[new10], Reward);
-    Updatealltasks();
 }
 
 function Updatealltasks(){
